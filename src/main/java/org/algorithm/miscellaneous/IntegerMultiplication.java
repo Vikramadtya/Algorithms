@@ -8,7 +8,7 @@ public class IntegerMultiplication {
      * @param var2
      * @return
      */
-    private String multiplyStringWithAnotherString(String var1, String var2) {
+    public String multiplyStringWithAnotherString(String var1, String var2) {
         String res = "0";
         for (int i = var1.length() - 1; i >= 0; --i) {
             String intermediate = multiplyStringWithOneValue(var2, var1.charAt(i));
@@ -47,7 +47,7 @@ public class IntegerMultiplication {
      * @param var2
      * @return
      */
-    private String addNumber(String var1, String var2) {
+    public String addNumber(String var1, String var2) {
         int size = Math.max(var1.length(), var2.length());
         if (var1.length() != var2.length()) {
             var1 = (var1.length() < var2.length()) ? paddZeroToLeft(var1, var2.length() - var1.length()) : var1;
@@ -60,6 +60,7 @@ public class IntegerMultiplication {
             result.append(sum % 10);
             carry = sum / 10;
         }
+        if(carry != 0)  result.append(carry);
         return result.reverse().toString();
     }
 
@@ -70,7 +71,7 @@ public class IntegerMultiplication {
      * @param padding
      * @return
      */
-    private String paddZeroToLeft(String var, int padding) {
+    public String paddZeroToLeft(String var, int padding) {
         StringBuilder res = new StringBuilder();
         res.append(new String(new char[padding]).replace("\0", "0"));
         res.append(var);
@@ -84,9 +85,18 @@ public class IntegerMultiplication {
      * @param padding
      * @return
      */
-    private String paddZeroToRight(String var, int padding) {
+    public String paddZeroToRight(String var, int padding) {
         StringBuilder res = new StringBuilder(var);
         res.append(new String(new char[padding]).replace("\0", "0"));
         return res.toString();
+    }
+
+    public String[] makeOfEqualLength(String var1, String var2) {
+        String [] res = {var1,var2};
+        if (var1.length() == var2.length())
+            return res;
+        res[0] = (var1.length() < var2.length()) ? paddZeroToLeft(var1, var2.length() - var1.length()) : var1;
+        res[1] = (var2.length() < var1.length()) ? paddZeroToLeft(var2, var1.length() - var2.length()) : var2;
+        return res;
     }
 }
