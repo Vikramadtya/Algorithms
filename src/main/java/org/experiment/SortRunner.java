@@ -6,6 +6,7 @@ import org.algorithm.sort.Sort;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
@@ -18,9 +19,8 @@ public class SortRunner {
     Sort<Integer> sorter;
     FileReader<String, Integer> reader = new FileReader<String, Integer>();
 
-    BiPredicate<Integer, Integer> comparator = (Integer a, Integer b) -> {
-        return a <= b;
-    };
+    Comparator<Integer> comparator = Integer::compareTo;
+
     Consumer<String> function = this::runSort;
 
     public static void main(String[] args) {

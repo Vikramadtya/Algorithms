@@ -1,20 +1,15 @@
 package org.algorithm.sort;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.BiPredicate;
 
-public class QuickSort<V> implements Sort<V> {
+public class QuickSort<V> extends SortUtility<V> implements Sort<V> {
     private int getPivotIndex(int left, int right) {
         return right;
     }
 
-    private void swap(List<V> array, int left, int right) {
-        V temp = array.get(left);
-        array.set(left, array.get(right));
-        array.set(right, temp);
-    }
-
-    private int partition(List<V> array, int left, int right, BiPredicate<V, V> comparator) {
+    private int partition(List<V> array, int left, int right, Comparator<V> comparator) {
         int pivotIndex = getPivotIndex(left, right);
         V pivot = array.get(pivotIndex);
 
@@ -23,7 +18,7 @@ public class QuickSort<V> implements Sort<V> {
 
         int i = left-1;
         for (int j = left; j <= right - 1; ++j) {
-            if (comparator.test(array.get(j), pivot)) {
+            if (comparator.compare(array.get(j), pivot) < 0) {
                 swap(array, j, ++i);
             }
         }
@@ -31,7 +26,7 @@ public class QuickSort<V> implements Sort<V> {
         return i;
     }
 
-    public void quickSort(List<V> array, int left, int right, BiPredicate<V, V> comparator) {
+    public void quickSort(List<V> array, int left, int right, Comparator<V> comparator) {
         if (left < 0 || right > array.size() || left >= right)
             return;
 
@@ -41,7 +36,7 @@ public class QuickSort<V> implements Sort<V> {
     }
 
     @Override
-    public List<V> sort(List<V> array, int order, BiPredicate<V, V> comparator) {
+    public List<V> sort(List<V> array, int order, Comparator<V> comparator) {
         quickSort(array,0,array.size()-1,comparator);
         return array;
     }

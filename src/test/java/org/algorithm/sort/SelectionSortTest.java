@@ -7,10 +7,5 @@ public class SelectionSortTest extends SortTest{
     public void setup() {
         sorter = new SelectionSort<Integer>();
 
-        comparator = (Integer a, Integer b) -> {
-            if (a <= b)
-                return true;
-            return false;
-        };
     }
 }

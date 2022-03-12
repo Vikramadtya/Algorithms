@@ -7,10 +7,6 @@ public class MergeSortTest extends SortTest {
     public void setup() {
         sorter = new MergeSort<Integer>();
 
-        comparator = (Integer a, Integer b) -> {
-            if (a <= b)
-                return true;
-            return false;
-        };
+
     }
 }

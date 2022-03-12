@@ -1,5 +1,6 @@
 package org.algorithm.sort;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.BiPredicate;
 
@@ -11,7 +12,7 @@ public interface Sort <V> {
      * @param comparator function to compare two values
      * @return
      */
-    public List<V> sort(List<V> array, int order, BiPredicate<V, V> comparator);
+    public List<V> sort(List<V> array, int order, Comparator<V> comparator);
 
     /**
      * Check if the array is sorted
@@ -19,9 +20,9 @@ public interface Sort <V> {
      * @param comparator
      * @return
      */
-    default public boolean isSorted(List<V> array, BiPredicate<V, V> comparator) {
+    default public boolean isSorted(List<V> array, Comparator<V> comparator) {
         for (int i = 0; i + 1 < array.size(); ++i) {
-            if (!comparator.test(array.get(i), array.get(i + 1))) {
+            if (comparator.compare(array.get(i), array.get(i + 1)) > 0) {
                 return false;
             }
         }
