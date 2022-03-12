@@ -1,23 +1,7 @@
-package org.algorithm.miscellaneous;
+package org.algorithm.miscellaneous.multiplication;
 
-public class IntegerMultiplication {
-    /**
-     * Multiply two number
-     *
-     * @param var1
-     * @param var2
-     * @return
-     */
-    public String multiplyStringWithAnotherString(String var1, String var2) {
-        String res = "0";
-        for (int i = var1.length() - 1; i >= 0; --i) {
-            String intermediate = multiplyStringWithOneValue(var2, var1.charAt(i));
-            res = addNumber(res, paddZeroToRight(intermediate, var1.length() - 1 - i));
-        }
-        return res.toString();
-    }
-
-    private int charToInt(char x) {
+public abstract class MultiplicationHelper {
+    public int charToInt(char x) {
         return x - '0';
     }
 
@@ -28,7 +12,7 @@ public class IntegerMultiplication {
      * @param x
      * @return
      */
-    private String multiplyStringWithOneValue(String var, char x) {
+    public String multiplyStringWithOneValue(String var, char x) {
         int carry = 0;
         StringBuilder result = new StringBuilder();
         for (int i = var.length() - 1; i >= 0; --i) {
@@ -60,7 +44,7 @@ public class IntegerMultiplication {
             result.append(sum % 10);
             carry = sum / 10;
         }
-        if(carry != 0)  result.append(carry);
+        if (carry != 0) result.append(carry);
         return result.reverse().toString();
     }
 
@@ -92,11 +76,34 @@ public class IntegerMultiplication {
     }
 
     public String[] makeOfEqualLength(String var1, String var2) {
-        String [] res = {var1,var2};
+        String[] res = {var1, var2};
         if (var1.length() == var2.length())
             return res;
         res[0] = (var1.length() < var2.length()) ? paddZeroToLeft(var1, var2.length() - var1.length()) : var1;
         res[1] = (var2.length() < var1.length()) ? paddZeroToLeft(var2, var1.length() - var2.length()) : var2;
+        return res;
+    }
+
+    public String[] splitToHalf(String var) {
+        String[] result = new String[2];
+        result[0] = var.substring(0, var.length() >> 1);
+        result[1] = var.substring(var.length() >> 1, var.length());
+        return result;
+    }
+
+    public String[] makeOfEqualAndEvenLength(String var1, String var2) {
+        String[] res = {var1, var2};
+
+        if (var1.length() != var2.length()) {
+            res = makeOfEqualLength(var1, var2);
+        }
+
+        int size = var1.length();
+
+        if ((size & 1) != 0) {
+            res[0] = paddZeroToLeft(res[0], 1);
+            res[1] = paddZeroToLeft(res[1], 1);
+        }
         return res;
     }
 }
